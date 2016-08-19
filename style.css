@@ -1,0 +1,7 @@
+body {
+  font-family: 'Taviraj', serif;
+}
+
+.navbar-nav>li>a {
+  padding-left: 85em;
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>NAVA SAMPLE TITLE</title>
+    <script src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
+    <script src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
+    <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Taviraj" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <header>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">The Marketplace</a>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <body>
+    <div id="nava-app"></div>
+    <script type="text/babel">
+      var Household = React.createClass({
+        getInitialState(){
+          return {view: {showModal: false}, memberView: {display: ''}}
+        },
+        handleHideModal(){
+          console.log('handle close');
+          this.setState({view: {showModal: false}})
+        },
+        handleShowModal() {
+          console.log('handle open');
+          this.setState({view: {showModal: true}})
+        },
+        displayHousehold() {
+          console.log('this was passed');
+          console.log('this', this)
+        },
+        render() {
+          console.log(this.state);
+          return (
+            <div className="container">
+              <h1>
+                Your Household
+              </h1>
+              <h3>
+                Welcome to the Marketplace! Review your household below.
+              </h3>
+              <br /><br />
+              <div className="row">
+                <div className="col-md-4">
+                  Full Name
+                </div>
+                <div className="col-md-4">
+                  Description
+                </div>
+                <div className="col-md-4">
+                  Favorite Fruit
+                </div>
+              </div>
+              <br/><br/>
+              <button
+                className="btn btn-default btn-block"
+                onClick={this.handleShowModal}
+              >
+                Add New Members
+              </button>
+              {this.state.view.showModal ? <Modal handleHideModal={this.handleHideModal} /> : null}
+                <div
+                  className="modal fade bs-example-modal-lg"
+                  role="dialog"
+                  aria-labelledby="add-members-modal"
+                >
+                  <div className="modal-dialog modal-lg" role="document">
+                      <div className="modal-content">
+                        Content
+                      </div>
+                  </div>
+                </div>
+
+            </div>
+          );
+        }
+      });
+      var Modal = React.createClass({
+        componentDidMount(){
+            $(ReactDOM.findDOMNode(this)).modal('show');
+            $(ReactDOM.findDOMNode(this)).on('hidden.bs.modal', this.props.handleHideModal);
+        },
+        render(){
+          return (
+            <div className="modal fade">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                    <h4 className="modal-title">Add Household Members</h4>
+                  </div>
+                  <div className="modal-body">
+                    <form>
+                    <div className="form-group">
+                      <label>Full Name</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="name"
+                          aria-describedby="fullName"
+                          placeholder="Enter Household Member's Full Name"
+                        />
+                    </div>
+                    <div className="form-group">
+                      <label>Description</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="description"
+                          aria-describedby="description"
+                          placeholder="Describe Household Member's Relationship"
+                        />
+                    </div>
+                      <div className="form-group">
+                        <label>Favorite Fruit</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="favFruit"
+                            aria-describedby="favorite-fruit"
+                            placeholder="Enter Household Member's Favorite Fruit"
+                          />
+                      </div>
+                    </form>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                    <input
+                      onClick={console.log(this)}
+                      type="submit"
+                      className="btn btn-primary"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+      });
+      ReactDOM.render(
+        <Household />,
+          document.getElementById('nava-app')
+      );
+    </script>
+  </body>
+  <footer>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+      <div class="container">
+        Footer
+      </div>
+    </nav>
+  </footer>
+</html>
+
+
+
+
